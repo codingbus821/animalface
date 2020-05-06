@@ -2,6 +2,8 @@
 <html>
 
 <head>
+    
+    
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,7 +11,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <title>테스트!</title>
+    <title>잘생김 테스트!</title>
     <link rel="stylesheet" href="style.css">
     <!-- Go to www.addthis.com/dashboard to customize your tools -->
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eb162242631e2f8"></script>
@@ -18,7 +20,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light nav-distance">
-        <a class="navbar-brand" href="#">동물상 테스트</a>
+        <a class="navbar-brand" href="#">잘생김 테스트</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -31,38 +33,26 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                   
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
+                    
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
+            
         </div>
     </nav>
 
     <section class="section">
-        <h1 class="title">인공지능 동물상 테스트 (남자)</h1>
-        <h2 class="subtitle">나는 어떤 동물과 닮았을까?</h2>
+        <h1 class="title">잘생김 테스트</h1>
+        <h2 class="subtitle">객관적으로 나는 잘 생겼을까?</h2>
     </section>
     <section class="youtube">
         <div class="container youtube-cover d-flex flex-row-reverse mt-5">
             <img src="" alt="" class="youtube-icon">
-            <a href="" class="youtube-link">By 조코딩 유튜브 채널</a>
         </div>
     </section>
     <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
@@ -83,11 +73,15 @@
                 <!-- Go to www.addthis.com/dashboard to customize your tools -->
                 <div class="addthis_inline_share_toolbox"></div>
             
-            
-            
             <div class="image-title-wrap">
-                <button type="button" onclick="removeUpload()" class="remove-image">Remove
-                    <span class="image-title">Uploaded Image</span>
+                
+                <div class="loading-container">
+    <div class="loader"></div>
+    <div id="loading-text">AI가 분석 중입니다.</div>
+</div>
+
+                
+                <button type="button" onclick="removeUpload()" class="remove-image">다시하기
                 </button>
             </div>
         </div>
@@ -157,7 +151,7 @@
         // More API functions here:
         // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
         // the link to your model provided by Teachable Machine export panel
-        const URL = "https://teachablemachine.withgoogle.com/models/QdGFAjekk/";
+        const URL = "https://teachablemachine.withgoogle.com/models/Eo8SGqMK_/";
         let model, webcam, labelContainer, maxPredictions;
         // Load the image model and setup the webcam
         async function init() {
@@ -181,32 +175,14 @@
             const prediction = await model.predict(image, false);
             prediction.sort((a,b)=> parseFloat(b.probability)-parseFloat(a.probability));
             
-            var resultMessage;
+            var resultMessage = "재미로 보는 테스트 입니다 ^.^<br>95%이상 : 존잘<br>80%이상 : 잘생김<br>70%이상 : 훈훈<br>50%이상 : 평범";
             
-            switch(prediction[0].className){
-                case "dog":
-                    resultMessage = "강아지상"
-                    break;
-                case "cat":
-                    resultMessage = "고양이상"
-                    break;
-                case "rabbit":
-                    resultMessage = "토끼상"
-                    break;
-                case "dinosaur":
-                    resultMessage = "공룡상"
-                    break;
-                case "bear":
-                    resultMessage = "곰상"
-                    break;
-                default:
-                    resultMessage = "알수없음"
-            }
             $('.result-message').html(resultMessage);
+            $('.loading-container').hide();
             
             for (let i = 0; i < maxPredictions; i++) {
                 const classPrediction =
-                    prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+                    prediction[i].className + ": " + parseFloat(prediction[i].probability.toFixed(2))*100 + "%";
                 labelContainer.childNodes[i].innerHTML = classPrediction;
             }
         }
